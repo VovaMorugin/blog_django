@@ -1,0 +1,60 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<!--Main layout-->
+
+<!--Section: Content-->
+<section class="text-center">
+
+  <div class="row">
+    {% for post in posts%}
+
+
+    <div class="col-lg-4 col-md-12 mb-4">
+      <div class="card">
+        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+          <img src="/{{post.photo}}" class="img-fluid" />
+          <a href="#!">
+            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+          </a>
+        </div>
+        <div class="card-body">
+
+          <h5 class="card-title">{{post.title}}</h5>
+
+          <a href="/blog/post/{{ post.id }}/" class="btn btn-primary">Read</a>
+        </div>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+
+
+
+  <!-- Pagination -->
+
+  <nav class="my-4" aria-label="...">
+    <ul class="pagination pagination-circle justify-content-center">
+      <li class="page-item">
+        {% if posts.has_previous %}
+        <a class="page-link" href="?page={{ posts.previous_page_number }}" tabindex="-1" aria-disabled="true">
+          Previous
+        </a>
+        {% endif %}
+      </li>
+      <li class="page-item active" aria-current="page">
+        <a class="page-link" href="#"> {{posts.number}} <span class="sr-only">(current)</span></a>
+      </li>
+
+      {% if posts.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
+      </li>
+      {% endif %}
+
+    </ul>
+  </nav>
+
+</section>
+
+{% endblock %}
