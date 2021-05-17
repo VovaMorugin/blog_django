@@ -8,7 +8,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 def main_feed(request):
     posts = Post.objects.all()
     categories = Category.objects.all()
-    paginator = Paginator(posts, 3)
+    paginator = Paginator(posts, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
