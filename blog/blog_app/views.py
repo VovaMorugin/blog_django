@@ -7,29 +7,27 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 def main_feed(request):
     posts = Post.objects.all()
-    categories = Category.objects.all()
+    category_id = int(request.GET.get('category', 0))
+
     paginator = Paginator(posts, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'feed.html', {
-        "categories": categories,
-        "posts": page_obj
+        "posts": page_obj,
+        "category_id": category_id
 
     })
 
 
 def filtered_by_category(request, category_code):
-
     posts = Post.objects.all().filter(category_id=category_code)
-    categories = Category.objects.all()
     paginator = Paginator(posts, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'feed.html', {
-        "posts": page_obj,
-        "categories": categories
+        "posts": page_obj
     })
 
 
